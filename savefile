@@ -1,0 +1,46 @@
+share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap bitmap = takeScreenshot();
+                saveBitmap(bitmap);
+            }
+        });
+
+        //pdf.setOnClickListener(reportClickListener);
+
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+    }
+
+    public Bitmap takeScreenshot() {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        File imagePath = new File(Environment.getExternalStorageDirectory() +"/Documents");
+        String imgName = "mySnap";
+        String ext = imgName+".png";
+        File imgFile = new File(imagePath.getAbsolutePath(),ext);
+        FileOutputStream fos;
+        Toast.makeText(this,"Save"+imgFile,Toast.LENGTH_SHORT).show();
+
+        for (int num = 0; imgFile.exists(); num++){
+            imgFile=new File(imagePath.getAbsolutePath(),imgName+num+".png");
+        }
+
+        try {
+            fos = new FileOutputStream(imgFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            //Log.e("GREC", e.getMessage(), e);
+        } catch (IOException e) {
+            //Log.e("GREC", e.getMessage(), e);
+        }
+    }
