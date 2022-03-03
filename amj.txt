@@ -1,4 +1,18 @@
 https://stackoverflow.com/questions/28711549/how-to-create-a-whatsapp-like-recording-button-with-slide-to-cancel
 
-
 https://codingwithmitch.com/blog/playing-video-recyclerview-exoplayer-android/
+
+------------------------------------------------------
+
+https://github.com/Lmakgae/WApp-Clone
+
+GitHub - gifffert/ParseSiteData: Easy parse data from any sites to RecyclerView with Jsoup and Picasso.
+https://github.com/gifffert/ParseSiteData
+
+https://youtu.be/_VqjUOd-sUg
+
+GitHub - bikashthapa01/myvideos-android-app: Simple Video Streaming app with Rest API
+https://github.com/bikashthapa01/myvideos-android-app
+
+GitHub - bikashthapa01/myvideos-android-app: Simple Video Streaming app with Rest API
+https://github.com/bikashthapa01/myvideos-android-app
