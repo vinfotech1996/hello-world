@@ -16,3 +16,17 @@ https://github.com/bikashthapa01/myvideos-android-app
 
 GitHub - bikashthapa01/myvideos-android-app: Simple Video Streaming app with Rest API
 https://github.com/bikashthapa01/myvideos-android-app
+============================================================
+
+How to Build an Android App to Compress Video? - GeeksforGeeks
+https://www.geeksforgeeks.org/how-to-build-an-android-app-to-compress-video/
+
+Is it possible to get the resolution of a video in Android? - Stack Overflow
+https://stackoverflow.com/questions/8000978/is-it-possible-to-get-the-resolution-of-a-video-in-android
+
+Can I manually force media player to play only video with resolution 400x224 for example? (Except manually alerating url adding quality code to id)
+
+How can I compress a video file in Android before uploading to a remote server?
+
+Android Compress Video before Upload to Server - Stack Overflow
+https://stackoverflow.com/questions/11314375/android-compress-video-before-upload-to-server
