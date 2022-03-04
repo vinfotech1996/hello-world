@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CompressVideo">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+-->
+
+
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".CompressVideo"
+android:orientation="vertical"
+android:padding="16dp"
+android:gravity="center_horizontal"
+>
+
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/bt_select"
+    android:text="Select Video"/>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/video_view1"
+        android:visibility="gone"/>
+
+</RelativeLayout>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/TextView1"
+    android:text="Original Video"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:visibility="gone"
+    android:layout_marginTop="8dp"/>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/Video_view2"
+        android:visibility="gone"
+        android:layout_marginTop="32dp"/>
+
+</RelativeLayout>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/text_view2"
+    android:text="Compressed Video"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:visibility="gone"
+    android:layout_marginTop="8dp"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/TextView3"
+    android:textSize="16sp"
+    android:visibility="gone"
+    android:layout_marginTop="4dp"/>
+
+</LinearLayout>
