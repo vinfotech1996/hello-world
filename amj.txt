@@ -30,3 +30,7 @@ How can I compress a video file in Android before uploading to a remote server?
 
 Android Compress Video before Upload to Server - Stack Overflow
 https://stackoverflow.com/questions/11314375/android-compress-video-before-upload-to-server
+=================================
+
+GitHub - philipplackner/SupportAllScreenSizes
+https://github.com/philipplackner/SupportAllScreenSizes
