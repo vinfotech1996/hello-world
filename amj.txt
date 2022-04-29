@@ -1,3 +1,8 @@
+https://github.com/RajatPalankar8/getx_localization-
+
+https://protocoderspoint.com/flutter-change-app-language-flutter-getx-localization/
+
+=================================
 https://github.com/SupremNandalDev/jsonParsingAndDataTable
 https://javiercbk.github.io/json_to_dart/
 https://www.youtube.com/watch?v=g6EU6J3RmSE
