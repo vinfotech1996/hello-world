@@ -1,3 +1,5 @@
+https://github.com/podcoder/flutter_localization
+........................................
 https://github.com/RajatPalankar8/getx_localization-
 
 https://protocoderspoint.com/flutter-change-app-language-flutter-getx-localization/
