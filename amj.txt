@@ -1,3 +1,11 @@
+Audio Recorddd......
+https://blog.logrocket.com/creating-flutter-audio-player-recorder-app/
+https://rrtutors.com/tutorials/flutter-audio-recodring-application
+--------------
+file pickkk
+https://camposha.info/flutter/flutter-filepicker/#gsc.tab=0
+
+--------------------------------------------------
 https://github.com/podcoder/flutter_localization
 ........................................
 https://github.com/RajatPalankar8/getx_localization-
