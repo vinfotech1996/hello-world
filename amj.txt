@@ -69,3 +69,77 @@ https://stackoverflow.com/questions/11314375/android-compress-video-before-uploa
 
 GitHub - philipplackner/SupportAllScreenSizes
 https://github.com/philipplackner/SupportAllScreenSizes
+
+
+
+=====================c sharp===========
+
+
+
+To copy a file or folder from an MTP (Media Transfer Protocol) connected portable device to a Windows system using C#, you can use the Windows Portable Devices API (WPD). Here's an example of how to do this:
+
+1. First, make sure you have the Windows Portable Devices API installed. You can add a reference to the `PortableDeviceApiLib` COM library in your C# project.
+
+2. Here's a C# code example to copy a file from an MTP device to your Windows system:
+
+```csharp
+using System;
+using PortableDeviceApiLib;
+using PortableDeviceTypesLib;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Connect to the portable device
+        var deviceManager = new PortableDeviceManager();
+        deviceManager.RefreshDeviceList();
+
+        // Replace with the actual device name or ID
+        string deviceId = "YourDeviceID";
+
+        PortableDevice device;
+        deviceManager.GetDevice(deviceId, out device);
+        device.Open();
+
+        // Specify the file path on the device and the destination on your PC
+        string sourcePath = @"\Internal storage\DCIM\example.jpg"; // Replace with the actual source path
+        string destinationPath = @"C:\Users\YourUsername\Documents\example.jpg"; // Replace with the actual destination path
+
+        // Copy the file
+        CopyFileFromDevice(device, sourcePath, destinationPath);
+
+        // Close the device connection
+        device.Close();
+    }
+
+    static void CopyFileFromDevice(PortableDevice device, string sourcePath, string destinationPath)
+    {
+        var content = device.GetContent();
+        foreach (var item in content)
+        {
+            if (item is PortableDeviceFolder folder)
+            {
+                // You can navigate through folders if needed
+                // Use folder.Files to access files in the folder
+            }
+            else if (item is PortableDeviceFile file)
+            {
+                if (file.Name.Equals(sourcePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Copy the file to the destination
+                    file.Transfer(destinationPath);
+                    Console.WriteLine($"File copied to {destinationPath}");
+                    return;
+                }
+            }
+        }
+
+        Console.WriteLine("File not found on the device.");
+    }
+}
+```
+
+Make sure to replace `"YourDeviceID"`, `sourcePath`, `destinationPath`, and `"YourUsername"` with the actual values for your device, file paths, and Windows user.
+
+This code connects to the specified MTP device, searches for the file on the device, and copies it to the specified destination on your Windows system.
