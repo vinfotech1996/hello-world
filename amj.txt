@@ -300,3 +300,147 @@ In this code:
 Build and run the application to test it.
 
 Please note that this example is simplified and doesn't include advanced features or robust error handling. A production-ready application should handle various scenarios and provide a better user experience.
+
+
+
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+
+
+
+Certainly! Here's another example of a C# desktop application that allows users to choose an MTP device, select a specific directory or folder on the device, and then backup its files to a Windows system. This example uses Windows Forms and assumes you've already set up a Windows Forms Application project.
+
+```csharp
+using System;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using PortableDeviceApiLib;
+
+namespace MTPBackupApp
+{
+    public partial class MainForm : Form
+    {
+        private PortableDeviceManager deviceManager;
+        private PortableDevice device;
+        private string selectedDeviceId;
+        private string selectedDirectory;
+
+        public MainForm()
+        {
+            InitializeComponent();
+            deviceManager = new PortableDeviceManager();
+            PopulateDeviceListBox();
+        }
+
+        private void PopulateDeviceListBox()
+        {
+            foreach (var deviceId in deviceManager.GetDevices())
+            {
+                var device = GetDevice(deviceId);
+                listBoxDevices.Items.Add(device.FriendlyName);
+            }
+        }
+
+        private PortableDevice GetDevice(string deviceId)
+        {
+            PortableDevice portableDevice = new PortableDevice();
+            portableDevice.Open(deviceId);
+            return portableDevice;
+        }
+
+        private void ListBoxDevices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedDeviceId = deviceManager.GetDevices().ElementAtOrDefault(listBoxDevices.SelectedIndex);
+            device = GetDevice(selectedDeviceId);
+            RefreshDirectoryTreeView();
+        }
+
+        private void RefreshDirectoryTreeView()
+        {
+            treeViewDirectories.Nodes.Clear();
+
+            var rootNode = new TreeNode("MTP Device");
+            treeViewDirectories.Nodes.Add(rootNode);
+
+            LoadDirectoryContents(rootNode, @"\"); // Start from the root directory
+        }
+
+        private void LoadDirectoryContents(TreeNode parentNode, string directoryPath)
+        {
+            var folderContents = device.GetContents(directoryPath);
+
+            foreach (var contentItem in folderContents)
+            {
+                if (contentItem is PortableDeviceFolder folder)
+                {
+                    var folderNode = new TreeNode(folder.Name);
+                    parentNode.Nodes.Add(folderNode);
+                    LoadDirectoryContents(folderNode, folder.Path);
+                }
+                else if (contentItem is PortableDeviceFile file)
+                {
+                    // Display files as leaf nodes
+                    parentNode.Nodes.Add(file.Name);
+                }
+            }
+        }
+
+        private void TreeViewDirectories_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // When a directory is selected in the tree view, display its path in the TextBox
+            if (e.Node != null && e.Node.Tag != null)
+            {
+                selectedDirectory = e.Node.Tag.ToString();
+                textBoxSelectedDirectory.Text = selectedDirectory;
+            }
+        }
+
+        private void BackupButton_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(selectedDeviceId) && !string.IsNullOrEmpty(selectedDirectory))
+            {
+                // Specify the destination directory on the Windows system
+                string destinationPath = textBoxDestination.Text;
+
+                if (!string.IsNullOrEmpty(destinationPath))
+                {
+                    try
+                    {
+                        // Create the destination directory if it doesn't exist
+                        Directory.CreateDirectory(destinationPath);
+
+                        // Copy files from the selected MTP directory to the destination
+                        device.CopyFiles(selectedDirectory, destinationPath);
+
+                        MessageBox.Show("Backup completed successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please specify a destination folder on the Windows system.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select both an MTP device and a directory to back up.");
+            }
+        }
+    }
+}
+```
+
+In this example:
+
+- The `PopulateDeviceListBox` method populates the ListBox with available MTP devices.
+- The `ListBoxDevices_SelectedIndexChanged` event handler selects a device and refreshes the directory tree view.
+- The `RefreshDirectoryTreeView` method loads the contents of the selected directory on the MTP device into a TreeView control.
+- The `BackupButton_Click` event handler initiates the backup process, copying files from the selected MTP directory to the specified destination folder on the Windows system.
+
+Remember to create a Windows Forms application, add a ListBox, a TreeView, a TextBox for displaying the selected directory, and a TextBox for specifying the destination folder in your Form designer. Also, make sure to set the appropriate event handlers as shown in the code above.
+
+This example provides a basic framework for creating an MTP backup application, but you can further enhance it with error handling, progress reporting, and additional features as needed.
