@@ -143,3 +143,160 @@ class Program
 Make sure to replace `"YourDeviceID"`, `sourcePath`, `destinationPath`, and `"YourUsername"` with the actual values for your device, file paths, and Windows user.
 
 This code connects to the specified MTP device, searches for the file on the device, and copies it to the specified destination on your Windows system.
+
+-------------more examples---------------
+
+
+Creating a full C# desktop application for copying files from an MTP device to a Windows system is a complex task that goes beyond the scope of a single response. However, I can provide you with a simplified example to get you started. Please note that this example may not cover all edge cases and should be further enhanced for a production-ready application.
+
+Here's a step-by-step guide with code snippets for building a basic MTP file backup application:
+
+**Step 1: Create a new C# Windows Forms Application project.**
+
+**Step 2: Design the User Interface:**
+- In the main form, add the following controls:
+  - A ComboBox for selecting the MTP device.
+  - A TextBox for displaying the selected directory on the device.
+  - A Button to browse and select the MTP directory.
+  - A TextBox for specifying the destination folder on the Windows system.
+  - A Button for initiating the backup process.
+
+**Step 3: Add References:**
+- Right-click on your project in Solution Explorer and select "Add Reference."
+- Add references to `PortableDeviceApiLib` and `PortableDeviceTypesLib` (you can find these under the COM tab).
+
+**Step 4: Implement the Backup Logic:**
+
+```csharp
+using System;
+using System.IO;
+using System.Windows.Forms;
+using PortableDeviceApiLib;
+using PortableDeviceTypesLib;
+
+namespace MTPBackupApp
+{
+    public partial class MainForm : Form
+    {
+        private PortableDeviceManager deviceManager;
+        private PortableDevice device;
+
+        public MainForm()
+        {
+            InitializeComponent();
+            deviceManager = new PortableDeviceManager();
+            PopulateDeviceComboBox();
+        }
+
+        private void PopulateDeviceComboBox()
+        {
+            // Populate the ComboBox with available MTP devices
+            foreach (var deviceId in deviceManager.GetDevices())
+            {
+                var device = GetDevice(deviceId);
+                comboBoxDevices.Items.Add(device.FriendlyName);
+            }
+        }
+
+        private PortableDevice GetDevice(string deviceId)
+        {
+            PortableDevice portableDevice = new PortableDevice();
+            portableDevice.Open(deviceId);
+            return portableDevice;
+        }
+
+        private void BrowseButton_Click(object sender, EventArgs e)
+        {
+            // Use a folder browser dialog to select a directory on the MTP device
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            {
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    textBoxMTPDirectory.Text = folderBrowserDialog.SelectedPath;
+                }
+            }
+        }
+
+        private void BackupButton_Click(object sender, EventArgs e)
+        {
+            if (comboBoxDevices.SelectedIndex >= 0)
+            {
+                string selectedDirectory = textBoxMTPDirectory.Text;
+                string destinationPath = textBoxDestination.Text;
+
+                if (!string.IsNullOrEmpty(selectedDirectory) && !string.IsNullOrEmpty(destinationPath))
+                {
+                    try
+                    {
+                        // Create the destination directory if it doesn't exist
+                        Directory.CreateDirectory(destinationPath);
+
+                        // Copy files from the MTP device to the Windows system
+                        CopyFilesFromMTP(selectedDirectory, destinationPath);
+                        
+                        MessageBox.Show("Backup completed successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select both an MTP directory and a destination folder.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an MTP device.");
+            }
+        }
+
+        private void CopyFilesFromMTP(string sourceDirectory, string destinationDirectory)
+        {
+            var content = device.GetContent();
+            foreach (var item in content)
+            {
+                if (item is PortableDeviceFolder folder)
+                {
+                    // Recursively copy files from the MTP folder to the destination
+                    string folderPath = Path.Combine(destinationDirectory, folder.Name);
+                    Directory.CreateDirectory(folderPath);
+                    CopyFilesFromMTP(folder, folderPath);
+                }
+            }
+        }
+
+        private void CopyFilesFromMTP(PortableDeviceFolder folder, string destinationDirectory)
+        {
+            foreach (var item in folder.Files)
+            {
+                if (item is PortableDeviceFile file)
+                {
+                    string destinationPath = Path.Combine(destinationDirectory, file.Name);
+                    file.Transfer(destinationPath);
+                }
+                else if (item is PortableDeviceFolder subFolder)
+                {
+                    // Recursively copy files from the subfolder
+                    string subFolderPath = Path.Combine(destinationDirectory, subFolder.Name);
+                    Directory.CreateDirectory(subFolderPath);
+                    CopyFilesFromMTP(subFolder, subFolderPath);
+                }
+            }
+        }
+    }
+}
+```
+
+In this code:
+
+- The `PopulateDeviceComboBox` method populates the ComboBox with available MTP devices.
+- The `BrowseButton_Click` event handler allows the user to select an MTP directory using a folder browser dialog.
+- The `BackupButton_Click` event handler initiates the backup process, including creating the destination directory and copying files.
+- The `CopyFilesFromMTP` methods recursively copy files and folders from the MTP device to the Windows system.
+
+**Step 5: Run the Application:**
+Build and run the application to test it.
+
+Please note that this example is simplified and doesn't include advanced features or robust error handling. A production-ready application should handle various scenarios and provide a better user experience.
