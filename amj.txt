@@ -1,3 +1,11 @@
+med------
+
+[08/10, 11:56 am]  https://github.com/mhmzdev/medkit-pharmacy-app
+[08/10, 4:11 pm] https://github.com/GeekyAnts/flutter-folder-structure/tree/master/base_project
+[08/10, 4:20 pm]  https://github.com/zubairehman/flutter_boilerplate_project/blob/master/lib/core/widgets/progress_indicator_widget.dart
+[08/10, 4:33 pm]  https://github.com/firgia/Flutter_Template/tree/master
+[08/10, 4:34 pm] https://github.com/suryapratap1/Flutter-Project-Structure/tree/master/lib======================
+
 https://developer.android.com/studio/projects/add-native-code
 
 https://github.com/abuanwar072/E-commerce-Complete-Flutter-UI
