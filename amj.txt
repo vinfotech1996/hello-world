@@ -1,3 +1,62 @@
+In Flutter, you can achieve the effect of showing a `CircularProgressIndicator` in the foreground and another widget in the background by stacking these widgets using a `Stack` widget. Here's an example of how you can design such a layout:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyWidget(),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('CircularProgressIndicator Example'),
+      ),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background Widget
+          Container(
+            color: Colors.blue, // Replace with your desired background widget
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          // Foreground Widget
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+              SizedBox(height: 16.0),
+              Text(
+                "Loading...",
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+In this example, the `Stack` widget is used to overlay the `CircularProgressIndicator` and the background container. You can replace the background container with any widget you desire, such as an image, a video, or any other content you want to display in the background. The `CircularProgressIndicator` is centered on top of the background widget. Adjust the colors, sizes, and styling to match your specific design requirements.
+
+
+
 med------
 
 [08/10, 11:56 am]  https://github.com/mhmzdev/medkit-pharmacy-app
