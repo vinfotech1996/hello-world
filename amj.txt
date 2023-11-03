@@ -1,4 +1,5 @@
-
+https://stackoverflow.com/questions/62527739/keep-the-bottom-navigation-bar-in-every-screens-flutter
+----------------------------------------------------------------------------------------------------
 Choosing the right color theme for a naval healthcare information management system mobile app is important, as it can influence the app's usability and user experience. Here's a suggestion for an appropriate color theme:
 
 1. **Main Color Palette**:
