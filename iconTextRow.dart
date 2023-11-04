@@ -1,3 +1,12 @@
+import 'package:flutter/material.dart';
+
+class IconTextRow extends StatefulWidget {
+  const IconTextRow({super.key});
+
+  @override
+  State<IconTextRow> createState() => _IconTextRowState();
+}
+
 class _IconTextRowState extends State<IconTextRow> {
   @override
   Widget build(BuildContext context) {
