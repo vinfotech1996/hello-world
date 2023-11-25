@@ -3,6 +3,26 @@
 
 4 5 6 11 12 13 14
 
+import 'dart:io';
+
+void fetchData() {
+  try {
+    // Your network request code here
+    // For example:
+    final response = await yourNetworkRequestFunction();
+
+    // Process the response
+  } on SocketException catch (e) {
+    // Handle the socket/network-related exception
+    print('Connection refused: ${e.message}');
+    // You can show an error message to the user or perform other actions.
+  } catch (e) {
+    // Handle other exceptions
+    print('Error occurred: $e');
+  }
+}
+
+
 https://github.com/topics/reminder-application?l=dart
 
 https://stackoverflow.com/questions/62527739/keep-the-bottom-navigation-bar-in-every-screens-flutter
