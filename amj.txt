@@ -3,6 +3,11 @@
 
 4 5 6 11 12 13 14
 
+https://github.com/7-USH/Heart-Rate-API/tree/master
+https://github.com/7-USH/Heart-Rate-Monitor/tree/master
+
+https://stackoverflow.com/questions/25896481/heart-rate-sensor-api-for-android
+
 import 'dart:io';
 
 void fetchData() {
