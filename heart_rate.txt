@@ -1,0 +1,7 @@
+http://127.0.0.1:5000/api?query=https://firebasestorage.googleapis.com/v0/b/heart-rate-monitor-cee6e.appspot.com/o/files%2Ftest.mp4?alt=media&token=61d6c17c-4f85-4c32-b9a7-7ea0fd19400c
+
+
+https://chat.openai.com/share/ac93f38c-65ae-48b6-80a7-6eb9dbea52f5
+
+https://github.com/7-USH/Heart-Rate-API/tree/master
+https://github.com/7-USH/Heart-Rate-Monitor/tree/master
