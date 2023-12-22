@@ -1,0 +1,98 @@
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MTPFileBackup
+{
+
+
+i create windows form like one dropdownbox in select mtp device and after device select than set static internal storage folder path to download whole file and one button is backup on click this folder all content copy to windows system to desktop in folder current date. in c sharp
+
+
+
+
+
+    public partial class MainForm : Form
+    {
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        private async void MainForm_Load(object sender, EventArgs e)
+        {
+            // Populate dropdown box with connected MTP devices
+            // Use appropriate code to enumerate and populate the devices
+            // For simplicity, manually adding sample devices
+            comboBoxDevices.Items.Add("Device 1");
+            comboBoxDevices.Items.Add("Device 2");
+            comboBoxDevices.SelectedIndex = 0; // Select the first device by default
+        }
+
+        private async void btnBackup_Click(object sender, EventArgs e)
+        {
+            string selectedDevice = comboBoxDevices.SelectedItem.ToString();
+            string internalStoragePath = GetInternalStoragePath(selectedDevice); // Get the internal storage path for the selected device
+
+            if (!string.IsNullOrEmpty(internalStoragePath))
+            {
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string backupFolderPath = Path.Combine(desktopPath, DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+
+                Directory.CreateDirectory(backupFolderPath);
+
+                // Get files to copy
+                string[] filesToCopy = Directory.GetFiles(internalStoragePath);
+
+                // Initialize progress bar
+                progressBarBackup.Minimum = 0;
+                progressBarBackup.Maximum = filesToCopy.Length;
+                progressBarBackup.Value = 0;
+
+                // Perform backup asynchronously
+                await Task.Run(() =>
+                {
+                    for (int i = 0; i < filesToCopy.Length; i++)
+                    {
+                        string fileName = Path.GetFileName(filesToCopy[i]);
+                        string destFile = Path.Combine(backupFolderPath, fileName);
+                        File.Copy(filesToCopy[i], destFile, true);
+
+                        // Update progress bar on UI thread
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            progressBarBackup.Value++;
+                        });
+                    }
+                });
+
+                MessageBox.Show("Backup completed successfully!", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Internal storage path not found for the selected device.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Sample method to get the internal storage path for the selected device
+        private string GetInternalStoragePath(string selectedDevice)
+        {
+            // Implement logic to get the internal storage path based on the selected device
+            // This might involve using specific APIs or libraries to interact with MTP devices
+            // For demonstration purposes, returning a hardcoded path
+            if (selectedDevice == "Device 1")
+            {
+                return @"C:\InternalStorage\Device1";
+            }
+            else if (selectedDevice == "Device 2")
+            {
+                return @"D:\InternalStorage\Device2";
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+    }
+}
