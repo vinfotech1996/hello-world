@@ -33,6 +33,41 @@ void main() async {
 
 This code uses the `IOClient` from the `http` package with a custom `HttpClient` that accepts all certificates. Remember, this should only be used for testing, and SSL Pinning should be enabled in production for security.
 
+-------------------------------
+
+
+
+
+If you are using the `http` package in Flutter and you want to perform an HTTP request without SSL pinning (disabling certificate validation), you can do so by using the `http` package and setting `SecurityContext` to an instance that does not validate SSL certificates.
+
+Here's an example:
+
+```dart
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
+void main() async {
+  // Create a client without SSL pinning
+  final client = http.Client();
+
+  // Disable SSL certificate validation
+  (client.httpClient as http.IOClient).httpClient.badCertificateCallback =
+      (X509Certificate cert, String host, int port) => true;
+
+  try {
+    final response = await client.get(Uri.parse('https://example.com'));
+    print(response.body);
+  } catch (e) {
+    print('Error: $e');
+  } finally {
+    client.close();
+  }
+}
+```
+
+In this example, we create an `http.Client()` and disable SSL certificate validation using `badCertificateCallback`. This callback always returns `true`, effectively bypassing SSL certificate checks.
+
+Please note that this is typically used for testing purposes and should not be done in production unless you have a very good reason, as it compromises the security of your application. Always prioritize secure practices, especially when dealing with sensitive data.
 
 
 6---net
