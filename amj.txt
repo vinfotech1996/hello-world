@@ -1,3 +1,7 @@
+How to disable SSL Pinning on Flutter?
+
+SSL Pinning in Flutter Apps?medium
+
 
 We are using Flutter for app development. Our security testers said that we need to disable SSL Pinning in Flutter code so they can run some test. We couldn't do it. We use http flutter package for HTTP request. How can we disable SSL Pinning on Flutter?
 
