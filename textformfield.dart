@@ -195,3 +195,56 @@ class _PasswordFieldState extends State<PasswordField> {
           child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
         ),
         ),);}}
+
+================================
+
+Sure, here's a custom CircularProgressIndicator loader for your weather forecast app "INDRA" using Flutter and Dart:
+
+```dart
+import 'package:flutter/material.dart';
+
+class CustomLoader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 100.0,
+        height: 100.0,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+            ),
+            Center(
+              child: Text(
+                "INDRA",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+This code creates a custom CircularProgressIndicator with a circular container and a text label "INDRA" in the center. The container has a white background, rounded corners, and a shadow to give it a modern and attractive look. You can customize the colors, sizes, and styles further to match the design of your app.
