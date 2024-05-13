@@ -1,0 +1,56 @@
+To generate two lists from the `tempHighLowList` and `tempImgList`, pairing their elements based on odd and even indices, you can modify the Dart code like this:
+
+```dart
+import 'dart:convert';
+
+void main() {
+  // Example JSON response
+  String jsonResponse = '''
+    {
+      "data": [
+        {
+          "tempHighLowList": [20, 15, 25, 18],
+          "tempImgList": ["sun", "cloud", "rain", "snow"]
+        },
+        {
+          // Additional data...
+        }
+      ]
+    }
+  ''';
+
+  // Parse the JSON
+  Map<String, dynamic> parsedResponse = json.decode(jsonResponse);
+  List<dynamic> dataList = parsedResponse['data'];
+
+  // Lists to store paired elements
+  List<int> highTemps = [];
+  List<int> lowTemps = [];
+  List<String> weatherConditions = [];
+
+  // Process each item in the dataList
+  dataList.forEach((item) {
+    List<int> tempHighLowList = item['tempHighLowList'];
+    List<String> tempImgList = item['tempImgList'];
+
+    // Pair elements based on odd and even indices
+    for (int i = 0; i < tempHighLowList.length; i++) {
+      if (i % 2 == 0) {
+        highTemps.add(tempHighLowList[i]);
+      } else {
+        lowTemps.add(tempHighLowList[i]);
+      }
+    }
+
+    // Add weather conditions to the list
+    weatherConditions.addAll(tempImgList);
+  });
+
+  // Print the paired lists
+  print('High Temps: $highTemps');
+  print('Low Temps: $lowTemps');
+  print('Weather Conditions: $weatherConditions');
+}
+```
+
+This code will generate two lists: `highTemps` and `lowTemps`, containing the high and low temperatures respectively, and a `weatherConditions` list containing the weather conditions.
